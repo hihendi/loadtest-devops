@@ -61,7 +61,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@v2.1.1
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
