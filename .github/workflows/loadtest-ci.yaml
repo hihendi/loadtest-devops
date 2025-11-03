@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run Tests with Coverage
-        run: npm test -- --coverage --ci --json
+        run: npm runt test
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-report
@@ -60,13 +60,22 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.projectKey=hihendi_load-test-devops
+            -Dsonar.organization=hihendi
+            -Dsonar.projectName=load-test-devops
+            -Dsonar.branch.name=main
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          projectBaseDir: .
+
 
   # 4. Job untuk k6 Smoke Test
   k6-smoke-test:
