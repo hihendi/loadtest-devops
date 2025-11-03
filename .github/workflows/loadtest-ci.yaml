@@ -40,7 +40,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run Tests with Coverage
-        run: npm test -- --coverage --ci --json --outputFile="test-results.json"
+        run: npm test -- --coverage --ci --json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
 
   # 3. Job untuk SonarQube Scan
   sonarqube-scan:
@@ -58,10 +62,12 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           projectBaseDir: .
+          args: >
+            -Dsonar.organization=hihendi
 
   # 4. Job untuk k6 Smoke Test
   k6-smoke-test:
-    name: 💨 k6 Smoke Test
+    name: k6 Smoke Test
     runs-on: ubuntu-latest
     needs: sonarqube-scan
     steps:
