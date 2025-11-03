@@ -8,6 +8,11 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
+  {
+    ignores: ["loadtest/script.js"]
+  },
+
+
   js.configs.recommended,
   ...compat.config({
     env: { 
