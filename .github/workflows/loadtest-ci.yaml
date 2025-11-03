@@ -62,8 +62,6 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           projectBaseDir: .
-          args: >
-            -Dsonar.organization=hihendi
 
   # 4. Job untuk k6 Smoke Test
   k6-smoke-test:
