@@ -98,5 +98,5 @@ jobs:
       - name: Run k6 Smoke Test
         uses: grafana/k6-action@v0.2.0
         with:
-          script: ./loadtest/script.js
+          entryPoint: loadtest/script.js
           cloud: false
